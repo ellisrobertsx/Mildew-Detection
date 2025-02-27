@@ -53,6 +53,7 @@ def predict_image(image_path):
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
+    prediction = None
     if request.method == 'POST':
         if 'file' not in request.files:
             return "No file part"
@@ -64,14 +65,8 @@ def upload_file():
             os.makedirs('uploads', exist_ok=True)
             file.save(file_path)
             prediction = predict_image(file_path)
-            return f"Prediction: {prediction}"
-    return '''
-    <h1>Upload Cherry Leaf Image</h1>
-    <form method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit">
-    </form>
-    '''
+            return render_template('index.html', prediction=prediction)
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
