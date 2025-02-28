@@ -6,6 +6,8 @@
         body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
         .container { max-width: 500px; margin: auto; padding: 20px; border: 1px solid #ccc; }
         input[type="submit"] { padding: 10px 20px; background: #4CAF50; color: white; border: none; }
+        .preview { max-width: 100%; height: auto; margin-top: 10px; }
+        .error { color: red; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -16,6 +18,12 @@
             <input type="file" name="file"><br><br>
             <input type="submit" value="Predict">
         </form>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        {% if image_path %}
+            <img src="{{ image_path }}" class="preview" alt="Uploaded Image">
+        {% endif %}
         {% if prediction %}
             <h2>Prediction: {{ prediction }}</h2>
         {% endif %}

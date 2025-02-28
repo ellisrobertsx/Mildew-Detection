@@ -43,7 +43,7 @@ transform = transforms.Compose([
 def predict_image(image_path):
     print(f"Processing image: {image_path}")
     if not os.path.isfile(image_path) or not image_path.lower().endswith(('.jpg', '.jpeg', '.png')):
-        raise ValueError("Invalid image file")
+        raise ValueError("Invalid image file (must be .jpg, .jpeg, or .png)")
     try:
         image = Image.open(image_path).convert('RGB')
         image = transform(image).unsqueeze(0)
@@ -59,28 +59,31 @@ def uploaded_file(filename):
     try:
         return send_from_directory('uploads', filename, as_attachment=False)
     except FileNotFoundError:
-        abort(404)  # Return 404 if file not found
+        abort(404)
     except Exception as e:
-        abort(500, description=str(e))  # Return 500 with error details for debugging
+        abort(500, description=str(e))
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     prediction = None
     image_path = None
+    error = None
     if request.method == 'POST':
         if 'file' not in request.files:
-            return "No file part"
-        file = request.files['file']
-        if file.filename == '':
-            return "No selected file"
-        if file:
-            file_path = os.path.join('uploads', file.filename)
-            os.makedirs('uploads', exist_ok=True)
-            file.save(file_path)
-            image_path = f"/uploads/{os.path.basename(file_path)}"
-            prediction = predict_image(file_path)
-            return render_template('index.html', prediction=prediction, image_path=image_path) if isinstance(prediction, str) and "Error" not in prediction else f"Error: {prediction}"
-    return render_template('index.html')
+            error = "No file part"
+        else:
+            file = request.files['file']
+            if file.filename == '':
+                error = "No selected file"
+            elif file:
+                file_path = os.path.join('uploads', file.filename)
+                os.makedirs('uploads', exist_ok=True)
+                file.save(file_path)
+                image_path = f"/uploads/{os.path.basename(file_path)}"
+                prediction = predict_image(file_path)
+                if isinstance(prediction, str) and "Error" in prediction:
+                    error = prediction
+    return render_template('index.html', prediction=prediction, image_path=image_path, error=error)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
