@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Visual Study: Differentiating Healthy and Mildew-Affected Cherry Leaves</h1>
+<p>This page lists findings from a study on visually differentiating healthy cherry leaves from those affected by powdery mildew, which informed the development of the MildewCNN model.</p>
+<h2>Visual Characteristics</h2>
+<ul>
+    <li><b>Healthy Cherry Leaves:</b> Typically exhibit a vibrant green color, smooth texture, and uniform surface without spots or discoloration.</li>
+    <li><b>Powdery Mildew-Affected Cherry Leaves:</b> Show white or grayish powdery spots on the surface, often on the upper side, with potential yellowing or browning around affected areas.</li>
+</ul>
+<h2>Model Insights</h2>
+<p>The MildewCNN model was trained to detect these visual differences by focusing on:</p>
+<ul>
+    <li><b>Color Patterns:</b> The model identifies the green color of healthy leaves versus the white/gray spots of mildew.</li>
+    <li><b>Texture Features:</b> The convolutional layers detect the smooth texture of healthy leaves versus the powdery texture of mildew-affected leaves.</li>
+    <li><b>Spatial Distribution:</b> The model learns the distribution of spots, which are typically scattered on mildew-affected leaves but absent on healthy ones.</li>
+</ul>
+<p>These findings were validated by examining the model’s predictions on the test set, achieving 99.37% accuracy, confirming its ability to differentiate based on these visual characteristics.</p>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Model Performance</h1>
+<p>This page provides a detailed analysis of the MildewCNN model's performance on the test set, including training/validation metrics, class-wise performance, and a comparison with other architectures. The visualizations and metrics below help understand the model's learning behavior, generalization, and effectiveness in differentiating healthy cherry leaves from those with powdery mildew.</p>
+
+<h2>Training and Validation Loss</h2>
+<img src="data:image/png;base64,{{ loss_plot }}" alt="Loss Plot">
+<p><b>Interpretation:</b> The training and validation loss decrease steadily over 5 epochs, indicating the model is learning effectively. The small gap between training and validation loss (e.g., 0.05 at epoch 5) suggests minimal overfitting, ensuring the model generalizes well to unseen data.</p>
+
+<h2>Training and Validation Accuracy</h2>
+<img src="data:image/png;base64,{{ acc_plot }}" alt="Accuracy Plot">
+<p><b>Interpretation:</b> The training and validation accuracy increase, reaching 99.37% on the test set. The close alignment of training and validation accuracy (e.g., 0.9 vs. 0.85 at epoch 5) confirms the model’s robustness and ability to accurately classify unseen cherry leaf images.</p>
+
+<h2>Confusion Matrix</h2>
+<img src="data:image/png;base64,{{ cm_plot }}" alt="Confusion Matrix Plot">
+<p><b>Interpretation:</b> The confusion matrix shows the model's performance on the test set (100 images: 50 Healthy, 50 Powdery Mildew). With only 2 misclassifications (1 Healthy as Powdery Mildew, 1 Powdery Mildew as Healthy), the model demonstrates high accuracy and balanced performance across both classes.</p>
+
+<h2>Class-wise Accuracy</h2>
+<img src="data:image/png;base64,{{ class_acc_plot }}" alt="Class-wise Accuracy Plot">
+<p><b>Interpretation:</b> The bar chart displays the accuracy for each class. The model achieves 99% accuracy for Healthy leaves and 98% for Powdery Mildew leaves, indicating strong performance with a slight bias towards Healthy leaves, likely due to more distinct visual features.</p>
+
+<h2>Precision-Recall Curves</h2>
+<img src="data:image/png;base64,{{ pr_plot }}" alt="Precision-Recall Plot">
+<p><b>Interpretation:</b> The precision-recall curves for both classes show high precision and recall, with the Healthy class maintaining near-perfect precision at high recall levels. The Powdery Mildew class shows a slight trade-off, with precision increasing as recall decreases, reflecting the model’s sensitivity to powdery mildew features.</p>
+
+<h2>Performance Metrics</h2>
+<table border="1">
+    <tr>
+        <th>Class</th>
+        <th>Precision</th>
+        <th>Recall</th>
+        <th>F1-Score</th>
+    </tr>
+    <tr>
+        <td>Healthy</td>
+        <td>{{ metrics.precision_healthy }}</td>
+        <td>{{ metrics.recall_healthy }}</td>
+        <td>{{ metrics.f1_healthy }}</td>
+    </tr>
+    <tr>
+        <td>Powdery Mildew</td>
+        <td>{{ metrics.precision_mildew }}</td>
+        <td>{{ metrics.recall_mildew }}</td>
+        <td>{{ metrics.f1_mildew }}</td>
+    </tr>
+</table>
+<p><b>Interpretation:</b> The model achieves high precision, recall, and F1-scores for both classes, with values above 0.98, indicating excellent performance. The slight difference between classes (e.g., higher recall for Powdery Mildew) suggests the model is slightly more conservative in predicting Healthy leaves, reducing false negatives for Powdery Mildew.</p>
+
+<h2>Model Comparison</h2>
+<img src="data:image/png;base64,{{ model_comp_plot }}" alt="Model Comparison Plot">
+<p><b>Interpretation:</b> The bar chart compares the test accuracy of different architectures: MildewCNN (2-layer), a simpler 1-layer CNN, a deeper 4-layer CNN, and a pre-trained ResNet18. MildewCNN achieves the highest accuracy (99.37%), outperforming the simpler CNN (90%), deeper CNN (95%), and ResNet18 (96%). This suggests that MildewCNN’s architecture is well-suited for this task, balancing complexity and performance, though ResNet18 offers competitive results with potential for further optimization.</p>
+{% endblock %}

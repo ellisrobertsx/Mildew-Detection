@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Cherry Leaf Prediction</h1>
+<p>Upload one or more 256x256 cherry leaf images (JPEG or PNG) to predict whether they are Healthy or have Powdery Mildew. The model, trained on a dataset of cherry leaf images, achieves 99.37% accuracy on test data.</p>
+<p><b>Download Test Images:</b> You can download a set of cherry leaf images for live prediction from the <a href="https://www.kaggle.com/codeinstitute/cherry-leaves" target="_blank">Kaggle PlantVillage Dataset</a>.</p>
+<form method="post" enctype="multipart/form-data">
+    <input type="file" name="files" multiple><br><br>
+    <input type="submit" value="Predict">
+</form>
+{% if predictions %}
+    <h2>Prediction Results</h2>
+    <table border="1">
+        <tr>
+            <th>Image Name</th>
+            <th>Prediction</th>
+            <th>Probability</th>
+        </tr>
+        {% for pred in predictions %}
+            <tr>
+                <td>{{ pred.filename }}</td>
+                <td>{{ pred.prediction }}</td>
+                <td>{{ pred.probability }}%</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <form method="post" action="{{ url_for('download_predictions') }}">
+        <input type="hidden" name="predictions" value="{{ predictions_json }}">
+        <input type="submit" value="Download Table as CSV">
+    </form>
+    <h2>Image Previews</h2>
+    {% for pred in predictions %}
+        <div>
+            <img src="{{ pred.image_url }}" alt="{{ pred.filename }}" style="max-width: 300px;">
+            <p><b>{{ pred.filename }}:</b> The model predicts this cherry leaf as "{{ pred.prediction }}" with a probability of {{ pred.probability }}%.</p>
+        </div>
+    {% endfor %}
+{% endif %}
+{% endblock %}

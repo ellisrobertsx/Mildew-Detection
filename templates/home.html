@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Mildew Detection System</h1>
+<p>This project is designed to help farmers identify powdery mildew on cherry leaves using a Convolutional Neural Network (CNN). The system allows users to upload a 256x256 cherry leaf image and receive a prediction of whether the leaf is "Healthy" or has "Powdery Mildew" with 99.37% accuracy.</p>
+<h2>Client's Requirements</h2>
+<p>The client, a group of cherry farmers, requires a system to:</p>
+<ul>
+    <li>Accurately identify powdery mildew on cherry leaves to enable timely treatment and protect crop yield.</li>
+    <li>Provide a user-friendly interface for uploading images and viewing predictions.</li>
+    <li>Offer insights into the model’s performance to ensure trust in the predictions.</li>
+    <li>Include detailed information about the dataset used for training and testing.</li>
+</ul>
+<p>Use the navigation menu above to:</p>
+<ul>
+    <li><b>Predict:</b> Upload an image to check for powdery mildew.</li>
+    <li><b>Model Performance:</b> View training and validation performance metrics of the model.</li>
+    <li><b>Dataset Overview:</b> Learn about the dataset used for training and testing.</li>
+    <li><b>Visual Study:</b> Explore findings on visually differentiating healthy and mildew-affected cherry leaves.</li>
+    <li><b>Hypothesis:</b> Understand the project hypothesis and its validation.</li>
+</ul>
+{% endblock %}

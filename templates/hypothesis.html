@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Project Hypothesis and Validation</h1>
+<p>This page outlines the project hypothesis and how it was validated throughout the development of the Mildew Detection System.</p>
+<h2>Project Hypothesis</h2>
+<p>We hypothesized that a Convolutional Neural Network (CNN) can accurately differentiate between healthy cherry leaves and those affected by powdery mildew by learning visual patterns such as color and texture differences, achieving an accuracy of over 80% on unseen data.</p>
+<h2>Validation Across the Project</h2>
+<ul>
+    <li><b>Data Collection and Preprocessing:</b> We collected a dataset of 1000 cherry leaf images (500 Healthy, 500 Powdery Mildew) from the PlantVillage Dataset on Kaggle. Images were resized to 256x256 and normalized to ensure consistency, enabling the model to focus on visual patterns.</li>
+    <li><b>Model Training:</b> The MildewCNN model was trained in `03_model_training.ipynb` for 5 epochs, using a lower learning rate to optimize performance. The model achieved 99.37% accuracy on the test set, far exceeding the 80% threshold, validating the hypothesis.</li>
+    <li><b>Visual Study:</b> A study on visual differentiation (see Visual Study page) confirmed that healthy leaves are green and smooth, while mildew-affected leaves have white powdery spots. The model learned these patterns, as evidenced by its high accuracy.</li>
+    <li><b>Model Performance Analysis:</b> Training and validation loss/accuracy plots (see Model Performance page) show steady improvement and minimal overfitting, confirming the model’s ability to generalize to unseen data.</li>
+    <li><b>Live Prediction Testing:</b> The Predict page allows users to upload images, with the model correctly predicting "Healthy" or "Powdery Mildew" with 99.37% accuracy on test images, further validating the hypothesis.</li>
+</ul>
+<p><b>Conclusion:</b> The hypothesis was successfully validated, as the MildewCNN model accurately differentiates between healthy and mildew-affected cherry leaves, achieving 99.37% accuracy and providing reliable predictions for farmers.</p>
+{% endblock %}

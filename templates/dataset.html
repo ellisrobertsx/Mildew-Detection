@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Dataset Overview</h1>
+<p>This page provides details about the cherry leaf dataset used to train and test the MildewCNN model.</p>
+<h2>Dataset Details</h2>
+<ul>
+    <li><b>Source:</b> The dataset was sourced from the PlantVillage Dataset on Kaggle, containing images of cherry leaves.</li>
+    <li><b>Total Images:</b> 1000 images (500 Healthy, 500 Powdery Mildew).</li>
+    <li><b>Image Size:</b> All images are uniform at 256x256 pixels, saved as JPEG or PNG.</li>
+    <li><b>Split Ratio:</b> Train (70%, 700 images), Validation (20%, 200 images), Test (10%, 100 images).</li>
+    <li><b>Classes:</b> Healthy, Powdery Mildew.</li>
+</ul>
+<p>The dataset is organized into `inputs/cherry-leaves_dataset/` with subfolders for `train`, `validation`, and `test`, each containing `healthy` and `powdery_mildew` subfolders. This structure ensures balanced training and evaluation of the model.</p>
+{% endblock %}
