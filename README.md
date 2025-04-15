@@ -160,7 +160,10 @@ The dashboard is built using Flask and deployed on Heroku, accessible at [Mildew
 - Jupyter Notebook
 - Kaggle
 - GitHub
+- Youtube
 - Heroku
+- Slack
+- ChatGpt 
 - Pandas
 - NumPy
 - Matplotlib
